@@ -1,0 +1,19 @@
+{
+  "name": "com.gdstudio.gd-ui",
+  "version": "1.0.0",
+  "displayName": "GD-UI",
+  "description": "UI content",
+  "unity": "2022.3",
+  "dependencies": {
+  },
+  "keywords": [
+    "Core",
+    "GDStudio",
+    "GD"
+  ],
+  "author": {
+    "name": "Graino",
+    "email": "renrerety@gmail.com",
+    "url": "renaudleveille.dev"
+  }
+}
