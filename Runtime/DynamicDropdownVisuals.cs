@@ -1,17 +1,11 @@
-using Nova;
 using System;
-using System.Collections.Generic;
+using Nova;
+using NovaSamples.UIControls;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 
-namespace NovaSamples.UIControls
+namespace gdui.runtime
 {
-    /// <summary>
-    /// The <see cref="ItemVisuals"/> type used to display a <see cref="Dropdown"/> control and its list of selectable options.
-    /// </summary>
-    [Serializable]
-    [MovedFrom(false, null, "Assembly-CSharp")]
-    public class DropdownVisuals : UIControlVisuals
+    public class DynamicDropdownVisuals : UIControlVisuals
     {
         [Header("Collapsed Visuals")] [Tooltip("The TextBlock to display the label of currently selected option.")]
         public TextBlock SelectionLabel = null;
@@ -48,7 +42,7 @@ namespace NovaSamples.UIControls
 
         [NonSerialized, HideInInspector] private bool eventHandlersRegistered = false;
 
-        public event Action<string> OnValueChanged = null;
+        public event Action<int> OnValueChanged = null;
 
         /// <summary>
         /// The datasource used to populate this dropdown control and its list of options.
@@ -154,7 +148,7 @@ namespace NovaSamples.UIControls
                 // Enable the IsOnon the list item to indicate its selected state.
                 option.IsOnIndicator.gameObject.SetActive(true);
 
-                OnValueChanged?.Invoke(DataSource.CurrentSelection);
+                OnValueChanged?.Invoke(DataSource.SelectedIndex);
             }
 
             // Collapse the expanded OptionsView
