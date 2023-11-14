@@ -6,7 +6,6 @@ namespace gdui.runtime
     public class RefreshRateLister : MonoBehaviour
     {
         private DynamicDropdown refreshRateDropdown;
-        private List<int> availableRefreshRates = new List<int>();
 
         private void Awake()
         {
@@ -15,20 +14,37 @@ namespace gdui.runtime
 
         private void Start()
         {
-            Resolution[] resolutions = Screen.resolutions;
-            GetAvailableRefreshRates(resolutions);
+            GetAvailableRefreshRates();
+            refreshRateDropdown.RefreshCurrentSelection();
         }
 
-        private void GetAvailableRefreshRates(Resolution[] resolutions)
+        private void GetAvailableRefreshRates()
         {
+            var resolutions = Screen.resolutions;
             var refreshRatesSet = new HashSet<RefreshRate>();
 
             foreach (var resolution in resolutions)
             {
-                if (refreshRatesSet.Contains(resolution.refreshRateRatio)) return;
-                refreshRatesSet.Add(resolution.refreshRateRatio);
-                GraphicsOptions.RefreshRates.Add(resolution.refreshRateRatio);
-                refreshRateDropdown.DropdownOptions.Options.Add(resolution.refreshRateRatio.ToString());
+                if (resolution.width != Screen.currentResolution.width ||
+                    resolution.height != Screen.currentResolution.height) continue;
+                AddToLists(refreshRatesSet, resolution);
+                CheckCurrentRefreshRate(resolution);
+            }
+        }
+
+        private void AddToLists(HashSet<RefreshRate> refreshRatesSet, Resolution resolution)
+        {
+            refreshRatesSet.Add(resolution.refreshRateRatio);
+            GraphicsOptions.RefreshRates.Add(resolution.refreshRateRatio);
+            refreshRateDropdown.DropdownOptions.Options.Add(resolution.refreshRateRatio.ToString());
+        }
+
+        private void CheckCurrentRefreshRate(Resolution resolution)
+        {
+            if (resolution.refreshRateRatio.Equals(Screen.currentResolution.refreshRateRatio))
+            {
+                refreshRateDropdown.DropdownOptions.SelectedIndex =
+                    refreshRateDropdown.DropdownOptions.Options.IndexOf(resolution.refreshRateRatio.ToString());
             }
         }
     }

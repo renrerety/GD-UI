@@ -18,14 +18,14 @@ namespace gdui.runtime
         /// </summary>
         private DynamicDropdownVisuals Visuals => View.Visuals as DynamicDropdownVisuals;
 
-        public void Expand()
+        private void Expand()
         {
             // Tell the dropdown to expand, showing a list of
             // selectable options.
             Visuals.Expand(DropdownOptions);
         }
 
-        public void Collapse()
+        private void Collapse()
         {
             // Collapse the dropdown and stop tracking it
             // as the expanded focused object.
@@ -77,6 +77,11 @@ namespace gdui.runtime
 
             Visuals.OnValueChanged -= HandleValueChanged;
             InputManager.OnPostClick -= HandlePostClick;
+        }
+
+        public void RefreshCurrentSelection()
+        {
+            Visuals.InitSelectionLabel(DropdownOptions.CurrentSelection);
         }
 
         /// <summary>
