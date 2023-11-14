@@ -644,13 +644,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 443
+  m_fontSize: 350
   m_fontSizeBase: 559.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 443
-  m_fontStyle: 0
+  m_fontSizeMax: 300
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -680,7 +680,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -114.25, y: -30, z: -114.25, w: -30}
+  m_margin: {x: -126.600006, y: -30, z: -126.600006, w: -30}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -754,8 +754,8 @@ MonoBehaviour:
         Raw: 24
         Type: 0
       Y:
-        Raw: 0.39999998
-        Type: 1
+        Raw: 23.999998
+        Type: 0
       Z:
         Raw: 0
         Type: 0
@@ -871,11 +871,11 @@ MonoBehaviour:
       Z: 0
     AutoSize:
       X: 0
-      Y: 1
+      Y: 0
       Z: 0
     RotateSize: 0
-    AspectRatio: {x: 1.0000001, y: 1, z: 0}
-    AspectRatioAxis: 2
+    AspectRatio: {x: 1, y: 0.99999994, z: 0}
+    AspectRatioAxis: 1
   autoLayout:
     Axis: 0
     Spacing:
@@ -1050,10 +1050,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 324.7
+        Raw: 300
         Type: 0
       Y:
-        Raw: 60
+        Raw: 40
         Type: 0
       Z:
         Raw: 0
@@ -2151,7 +2151,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 134.67801
+        Raw: 177.17801
         Type: 0
       Z:
         Raw: 0

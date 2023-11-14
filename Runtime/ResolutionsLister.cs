@@ -32,7 +32,7 @@ namespace gdui.runtime
                 resolutionsDropdown.DropdownOptions.Options.Add(res);
             }
 
-            GraphicsOptions.resolutions = filteredResolutions.ToList();
+            GraphicsOptions.Resolutions = filteredResolutions.ToList();
         }
 
         List<Resolution> FilterResolutions(Resolution[] resolutions)
