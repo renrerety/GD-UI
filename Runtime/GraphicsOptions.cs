@@ -1,42 +1,40 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace gdui.runtime
 {
     public class GraphicsOptions : MonoBehaviour
     {
-        public static List<Resolution> Resolutions = new List<Resolution>();
-        public static List<RefreshRate> RefreshRates = new List<RefreshRate>();
-        private RefreshRate currentFrameRate;
+        [NotNull] public static List<Resolution> Resolutions { get; set; } = new();
+        [NotNull] public static List<RefreshRate> RefreshRates { get; } = new();
+        private RefreshRate selectedFrameRate;
+        [SerializeField] private RefreshRateLister refreshRateLister;
+        [SerializeField] private ResolutionsLister resolutionsLister;
 
-        private void Start()
+        private void Awake()
         {
-            currentFrameRate = Screen.currentResolution.refreshRateRatio;
+            selectedFrameRate = Screen.currentResolution.refreshRateRatio;
+            refreshRateLister.GetAvailableRefreshRates();
+            resolutionsLister.PopulateResolutionDropdown();
         }
 
         public void SetResolution(int resolutionIndex)
         {
-            Resolution selectedResolution = Resolutions[resolutionIndex];
+            var selectedResolution = Resolutions[resolutionIndex];
             Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreenMode,
-                currentFrameRate);
+                selectedFrameRate);
         }
 
         public void SetFrameRate(int frameRateIndex)
         {
-            currentFrameRate = RefreshRates[frameRateIndex];
-
-            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height,
-                UnityEngine.Device.Screen.fullScreenMode, currentFrameRate);
+            selectedFrameRate = RefreshRates[frameRateIndex];
+            Screen.SetResolution(Screen.width, Screen.height, Screen.fullScreenMode, selectedFrameRate);
         }
 
         public void ToggleVSync(bool isEnabled)
         {
             QualitySettings.vSyncCount = isEnabled ? 1 : 0;
-        }
-
-        private void Update()
-        {
-            Debug.Log(QualitySettings.vSyncCount);
         }
 
         public void SetQuality(int index)
@@ -46,9 +44,8 @@ namespace gdui.runtime
 
         public void SetFullScreen(bool fullscreen)
         {
-            FullScreenMode mode = fullscreen ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
-            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, mode,
-                currentFrameRate);
+            var mode = fullscreen ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
+            Screen.SetResolution(Screen.width, Screen.height, mode, selectedFrameRate);
         }
 
         private void OnDestroy()

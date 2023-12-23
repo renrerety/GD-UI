@@ -6,27 +6,16 @@ namespace gdui.runtime
 {
     public class ResolutionsLister : MonoBehaviour
     {
-        private DynamicDropdown resolutionsDropdown;
+        [SerializeField] private DynamicDropdown resolutionsDropdown;
 
-        private void Awake()
-        {
-            resolutionsDropdown = GetComponent<DynamicDropdown>();
-        }
-
-        private void Start()
-        {
-            PopulateResolutionDropdown();
-            resolutionsDropdown.RefreshCurrentSelection();
-        }
-
-        private void PopulateResolutionDropdown()
+        public void PopulateResolutionDropdown()
         {
             resolutionsDropdown.DropdownOptions.Options.Clear();
 
             var screenResolutions = Screen.resolutions;
             var filteredResolutions = FilterResolutions(screenResolutions);
 
-            foreach (Resolution resolution in filteredResolutions)
+            foreach (var resolution in filteredResolutions)
             {
                 AddResolutionOption(resolution, filteredResolutions);
             }
@@ -34,20 +23,25 @@ namespace gdui.runtime
             GraphicsOptions.Resolutions = filteredResolutions.ToList();
         }
 
-        private void AddResolutionOption(Resolution resolution, List<Resolution> filteredResolutions)
+        private void AddResolutionOption(Resolution resolution, IList<Resolution> filteredResolutions)
         {
-            string res = resolution.width + " x " + resolution.height;
+            var res = resolution.width + " x " + resolution.height;
 
             resolutionsDropdown.DropdownOptions.Options.Add(res);
-            if (resolution.Equals(Screen.currentResolution))
+
+            if (resolution.width == Screen.width && resolution.height == Screen.height)
+            {
                 resolutionsDropdown.DropdownOptions.SelectedIndex = filteredResolutions.IndexOf(resolution);
+            }
+
+            resolutionsDropdown.RefreshCurrentSelection();
         }
 
-        List<Resolution> FilterResolutions(Resolution[] resolutions)
+        List<Resolution> FilterResolutions(IEnumerable<Resolution> resolutions)
         {
             var filteredList = new List<Resolution>();
 
-            foreach (Resolution resolution in resolutions)
+            foreach (var resolution in resolutions)
             {
                 if (filteredList.Contains(resolution) || !IsAspectValid(resolution)) continue;
                 if (IsRefreshRateValid(resolution))

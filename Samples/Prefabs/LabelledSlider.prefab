@@ -1506,7 +1506,7 @@ MonoBehaviour:
   DPadPercentAdjustment: 0.1
   Min: 0
   Max: 100
-  unitsFormat: '{0:0.00}'
+  unitsFormat: '{0:0}'
 --- !u!1 &7980665380784642590
 GameObject:
   m_ObjectHideFlags: 0

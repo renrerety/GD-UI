@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -11,10 +10,6 @@ namespace gdui.runtime
         private void Awake()
         {
             qualityDropdown = GetComponent<DynamicDropdown>();
-        }
-
-        private void Start()
-        {
             GenerateDropdownOptions();
         }
 
@@ -22,13 +17,6 @@ namespace gdui.runtime
         {
             var qualityLevels = QualitySettings.names;
             qualityDropdown.DropdownOptions.Options = qualityLevels.ToList();
-            foreach (var qualityLevel in qualityLevels)
-            {
-                if (!qualityLevel.Equals(QualitySettings.names[QualitySettings.GetQualityLevel()])) continue;
-                qualityDropdown.DropdownOptions.SelectedIndex = qualityLevels.ToList().IndexOf(qualityLevel);
-            }
-
-            qualityDropdown.RefreshCurrentSelection();
         }
     }
 }
